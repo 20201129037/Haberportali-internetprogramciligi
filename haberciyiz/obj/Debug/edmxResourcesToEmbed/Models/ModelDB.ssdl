@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Haberler">
+    <Key>
+      <PropertyRef Name="HaberId" />
+    </Key>
+    <Property Name="HaberId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="HaberKatId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="HaberBaslik" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="HaberAciklama" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EditorId" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kategoriler">
+    <Key>
+      <PropertyRef Name="KatId" />
+    </Key>
+    <Property Name="KatId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="KatAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kayit">
+    <Key>
+      <PropertyRef Name="KayitId" />
+    </Key>
+    <Property Name="KayitId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="KayitHaberId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="KayitKategoriId" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kullanıcılar">
+    <Key>
+      <PropertyRef Name="KullaniciId" />
+    </Key>
+    <Property Name="KullaniciId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="roleId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="KulaniciAdiSoyadi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="KullaniciSifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Haberler_ToKategoriler">
+    <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
+    <End Role="Haberler" Type="Self.Haberler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategoriler">
+        <PropertyRef Name="KatId" />
+      </Principal>
+      <Dependent Role="Haberler">
+        <PropertyRef Name="HaberKatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kayit_ToHaberler">
+    <End Role="Haberler" Type="Self.Haberler" Multiplicity="1" />
+    <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Haberler">
+        <PropertyRef Name="HaberId" />
+      </Principal>
+      <Dependent Role="Kayit">
+        <PropertyRef Name="KayitHaberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kayit_ToKategori">
+    <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
+    <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategoriler">
+        <PropertyRef Name="KatId" />
+      </Principal>
+      <Dependent Role="Kayit">
+        <PropertyRef Name="KayitKategoriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB1ModelStoreContainer">
+    <EntitySet Name="Haberler" EntityType="Self.Haberler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kayit" EntityType="Self.Kayit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kullanıcılar" EntityType="Self.Kullanıcılar" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Haberler_ToKategoriler" Association="Self.FK_Haberler_ToKategoriler">
+      <End Role="Kategoriler" EntitySet="Kategoriler" />
+      <End Role="Haberler" EntitySet="Haberler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kayit_ToHaberler" Association="Self.FK_Kayit_ToHaberler">
+      <End Role="Haberler" EntitySet="Haberler" />
+      <End Role="Kayit" EntitySet="Kayit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kayit_ToKategori" Association="Self.FK_Kayit_ToKategori">
+      <End Role="Kategoriler" EntitySet="Kategoriler" />
+      <End Role="Kayit" EntitySet="Kayit" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

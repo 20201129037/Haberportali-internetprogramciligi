@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Haberler">
+    <Key>
+      <PropertyRef Name="HaberId" />
+    </Key>
+    <Property Name="HaberId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HaberKatId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HaberBaslik" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HaberAciklama" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EditorId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Kategoriler" Relationship="Self.FK_Haberler_ToKategoriler" FromRole="Haberler" ToRole="Kategoriler" />
+    <NavigationProperty Name="Kayit" Relationship="Self.FK_Kayit_ToHaberler" FromRole="Haberler" ToRole="Kayit" />
+  </EntityType>
+  <EntityType Name="Kategoriler">
+    <Key>
+      <PropertyRef Name="KatId" />
+    </Key>
+    <Property Name="KatId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KatAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Haberler" Relationship="Self.FK_Haberler_ToKategoriler" FromRole="Kategoriler" ToRole="Haberler" />
+    <NavigationProperty Name="Kayit" Relationship="Self.FK_Kayit_ToKategori" FromRole="Kategoriler" ToRole="Kayit" />
+  </EntityType>
+  <EntityType Name="Kayit">
+    <Key>
+      <PropertyRef Name="KayitId" />
+    </Key>
+    <Property Name="KayitId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KayitHaberId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KayitKategoriId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Haberler" Relationship="Self.FK_Kayit_ToHaberler" FromRole="Kayit" ToRole="Haberler" />
+    <NavigationProperty Name="Kategoriler" Relationship="Self.FK_Kayit_ToKategori" FromRole="Kayit" ToRole="Kategoriler" />
+  </EntityType>
+  <EntityType Name="Kullanıcılar">
+    <Key>
+      <PropertyRef Name="KullaniciId" />
+    </Key>
+    <Property Name="KullaniciId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="roleId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KulaniciAdiSoyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KullaniciSifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Haberler_ToKategoriler">
+    <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
+    <End Role="Haberler" Type="Self.Haberler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategoriler">
+        <PropertyRef Name="KatId" />
+      </Principal>
+      <Dependent Role="Haberler">
+        <PropertyRef Name="HaberKatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kayit_ToHaberler">
+    <End Role="Haberler" Type="Self.Haberler" Multiplicity="1" />
+    <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Haberler">
+        <PropertyRef Name="HaberId" />
+      </Principal>
+      <Dependent Role="Kayit">
+        <PropertyRef Name="KayitHaberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kayit_ToKategori">
+    <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
+    <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategoriler">
+        <PropertyRef Name="KatId" />
+      </Principal>
+      <Dependent Role="Kayit">
+        <PropertyRef Name="KayitKategoriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB1Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Haberler" EntityType="Self.Haberler" />
+    <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" />
+    <EntitySet Name="Kayit" EntityType="Self.Kayit" />
+    <EntitySet Name="Kullanıcılar" EntityType="Self.Kullanıcılar" />
+    <AssociationSet Name="FK_Haberler_ToKategoriler" Association="Self.FK_Haberler_ToKategoriler">
+      <End Role="Kategoriler" EntitySet="Kategoriler" />
+      <End Role="Haberler" EntitySet="Haberler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kayit_ToHaberler" Association="Self.FK_Kayit_ToHaberler">
+      <End Role="Haberler" EntitySet="Haberler" />
+      <End Role="Kayit" EntitySet="Kayit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kayit_ToKategori" Association="Self.FK_Kayit_ToKategori">
+      <End Role="Kategoriler" EntitySet="Kategoriler" />
+      <End Role="Kayit" EntitySet="Kayit" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB1ModelStoreContainer" CdmEntityContainer="DB1Entities1">
+    <EntitySetMapping Name="Haberler">
+      <EntityTypeMapping TypeName="DB1Model.Haberler">
+        <MappingFragment StoreEntitySet="Haberler">
+          <ScalarProperty Name="HaberId" ColumnName="HaberId" />
+          <ScalarProperty Name="HaberKatId" ColumnName="HaberKatId" />
+          <ScalarProperty Name="HaberBaslik" ColumnName="HaberBaslik" />
+          <ScalarProperty Name="HaberAciklama" ColumnName="HaberAciklama" />
+          <ScalarProperty Name="EditorId" ColumnName="EditorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategoriler">
+      <EntityTypeMapping TypeName="DB1Model.Kategoriler">
+        <MappingFragment StoreEntitySet="Kategoriler">
+          <ScalarProperty Name="KatId" ColumnName="KatId" />
+          <ScalarProperty Name="KatAdi" ColumnName="KatAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kayit">
+      <EntityTypeMapping TypeName="DB1Model.Kayit">
+        <MappingFragment StoreEntitySet="Kayit">
+          <ScalarProperty Name="KayitId" ColumnName="KayitId" />
+          <ScalarProperty Name="KayitHaberId" ColumnName="KayitHaberId" />
+          <ScalarProperty Name="KayitKategoriId" ColumnName="KayitKategoriId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kullanıcılar">
+      <EntityTypeMapping TypeName="DB1Model.Kullanıcılar">
+        <MappingFragment StoreEntitySet="Kullanıcılar">
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+          <ScalarProperty Name="roleId" ColumnName="roleId" />
+          <ScalarProperty Name="KulaniciAdiSoyadi" ColumnName="KulaniciAdiSoyadi" />
+          <ScalarProperty Name="KullaniciSifre" ColumnName="KullaniciSifre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
